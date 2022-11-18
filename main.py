@@ -35,7 +35,7 @@ class NewGame:
         self.options = game_options
         self.window = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
         self.clock = pygame.time.Clock()
-        pygame.display.set_caption("Nine Mens Morris Game v2")
+        pygame.display.set_caption("Spaceships")
 
         # transform images before display
         self.yellow_piece = pygame.transform.rotate(
@@ -80,11 +80,11 @@ class NewGame:
         pygame.draw.rect(self.window, self.BLACK_COLOR, self.BORDER)  # draw the border
 
         yellow_health_text = self.HEALTH_FONT.render(
-            'Health: ' + str(yellow_health), True, self.RED_COLOR)  # render font
+            'Tati Health: ' + str(yellow_health), True, self.RED_COLOR)  # render font
         purple_health_text = self.HEALTH_FONT.render(
-            'Health: ' + str(purple_health), True, self.GREEN_COLOR)  # render font
-        self.window.blit(yellow_health_text, (self.WIDTH - yellow_health_text.get_width()-10, 10))
-        self.window.blit(purple_health_text, (10, 10))
+            'Maxi Health: ' + str(purple_health), True, self.GREEN_COLOR)  # render font
+        self.window.blit(purple_health_text, (self.WIDTH - yellow_health_text.get_width()-30, 10))
+        self.window.blit(yellow_health_text, (10, 10))
 
         self.window.blit(self.yellow_piece, (yellow.x, yellow.y))  # always draw after filling the screen
         self.window.blit(self.purple_piece, (purple.x, purple.y))
@@ -196,14 +196,14 @@ class NewGame:
                     self.yellow_health -= 1
                     self.BULLET_HIT_SOUND.play()
                 if event.type == self.purple_is_hit:
-                    self.yellow_health -= 1
+                    self.purple_health -= 1
                     self.BULLET_HIT_SOUND.play()
 
             winner_text = ''
+            if self.purple_health <= 0:
+                winner_text = "Tati is Pro!"
             if self.yellow_health <= 0:
-                winner_text = "Purple Wins!"
-            if self.yellow_health <= 0:
-                winner_text = "Yellow Wins!"
+                winner_text = "Maxi is Pro!"
             if winner_text != '':
                 self.draw_winner(winner_text)
                 break
